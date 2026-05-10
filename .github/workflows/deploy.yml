@@ -20,13 +20,16 @@ jobs:
       - name: 安装 pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.14.4  # 和 package.json 里的版本完全一致
+          version: 9.14.4
 
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
+      - name: 构建项目
+        run: pnpm run build  # 先执行项目的构建脚本
+
       - name: 部署到 Cloudflare
-        run: pnpm run deploy
+        run: pnpm exec wrangler deploy  # 直接调用wrangler部署
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
