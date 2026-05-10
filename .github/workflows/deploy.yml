@@ -12,23 +12,23 @@ jobs:
       - name: 拉取代码
         uses: actions/checkout@v4
 
-      - name: 安装 Node.js
+      - name: 安装 Node.js（升级到 22 以支持最新 Wrangler）
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: 安装 pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9.14.4
 
-      - name: 安装依赖（含wrangler）
+      - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
       - name: 构建项目
         run: pnpm run build
 
-      - name: 安装wrangler（如果没装）
+      - name: 安装 wrangler（Cloudflare 部署工具）
         run: pnpm add -D wrangler
 
       - name: 部署到 Cloudflare
