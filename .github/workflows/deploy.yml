@@ -23,11 +23,8 @@ jobs:
       - name: 构建项目
         run: pnpm run build
 
-      - name: 安装 wrangler
-        run: pnpm add -D wrangler
-
       - name: 部署到 Cloudflare Pages
-        run: pnpm exec wrangler pages deploy dist --commit-dirty=true
+        run: pnpm dlx wrangler pages deploy dist --project-name=fuwari
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
